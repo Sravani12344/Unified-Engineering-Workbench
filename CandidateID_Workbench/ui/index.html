@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unified Engineering Workbench</title><link rel="stylesheet" href="style.css"></head>
+<body><header><h1>Unified Engineering Workbench</h1><p>Engineering data • Thermal FE • Performance • Hardware</p></header>
+<nav><button data-tab="geometry" class="active">Geometry</button><button data-tab="thermal">Thermal Analysis</button><button data-tab="performance">Performance</button><button data-tab="hardware">Hardware</button><button data-tab="about">About</button></nav>
+<main>
+<section id="geometry" class="panel active"><h2>Geometry & Nodal Results</h2><p>Supported inputs: ASCII STL and nodal CSV using <code>node_id,x_m,y_m,z_m,temperature_C</code>.</p>
+<label>Choose STL or CSV <input type="file" id="geometryFile" accept=".stl,.csv"></label><p id="geometryStatus" class="status">No file selected.</p><pre id="geometryOutput">Select a file. Run the C++ CLI validator described in README to validate it.</pre>
+<p class="note">This starter interface validates file selection only; 3D rendering is not yet implemented.</p></section>
+<section id="thermal" class="panel"><h2>1D Steady-State Thermal FE</h2><p>Default case: L=1 m, A=1e-4 m², k=10 W/(m·K), q=10000 W/m³, T(0)=100°C, T(L)=20°C.</p>
+<label>Elements <select id="mesh"><option>10</option><option>20</option><option>40</option><option>80</option></select></label>
+<p>Run <code>workbench thermal 10 results/thermal_N10.csv</code> (change N to 20, 40, 80).</p><p class="status">The C++ backend exports nodal temperature CSV and reports midpoint maximum absolute error.</p></section>
+<section id="performance" class="panel"><h2>CPU Parallel Benchmark</h2><label>Independent cases <input id="cases" type="number" min="1" value="2000"></label><label>Elements per case <input id="elements" type="number" min="1" value="80"></label><p>Run <code>workbench benchmark 2000 80 5</code>. The backend reports median timings, speedup and efficiency.</p></section>
+<section id="hardware" class="panel"><h2>Hardware Adapter Demonstrator</h2><div class="cards"><article><h3>Microcontroller</h3><p>Simulated adapter • UART/USB • telemetry</p><button disabled>Connect (simulation pending)</button></article><article><h3>FPGA</h3><p>Simulated adapter • host data path</p><button disabled>Connect (simulation pending)</button></article><article><h3>JTAG adapter</h3><p>Debug/programming interface; not a compute board</p><button disabled>Connect (simulation pending)</button></article></div><p class="note">No physical hardware is connected. Adapter controls are a documented design target, not a working device integration.</p></section>
+<section id="about" class="panel"><h2>Build status and limitations</h2><p>This is a source-code starter implementation. Build the C++17 executable with CMake on the target Windows machine. A prebuilt, tested Windows Launch.exe is not included.</p></section>
+</main><footer>Prototype • All synthetic sample data is explicitly labelled.</footer><script src="app.js"></script></body></html>
